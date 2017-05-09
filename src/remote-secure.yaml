@@ -1,7 +1,0 @@
-hosts: [artrejo-g2.graphs.azure.com]
-port: 443
-username: /dbs/db1/colls/test1
-password: zVI4tPA2N0Y2AoNnCSLWYxHyFlVF4FnJlY04AnFleXDN5jlxQXwazjPYeFxY329Y3pjuimEa4Zvb3FEsYu6Xow==
-connectionPool: {
-  enableSsl: true}
-serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV1d0, config: { serializeResultToString: true }}
