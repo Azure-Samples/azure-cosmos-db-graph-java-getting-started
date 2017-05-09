@@ -38,13 +38,42 @@ public class Program
 
         client = cluster.connect();
 
-        ResultSet results = client.submit("g.V()");
+        /*
+            Example Gremlin queries to perform the following:
+            - add vertices and edges
+            - query with filters, projections, 
+            - traversals, including loops
+            - update annd delete vertices and edges
+        */
+        String gremlinQueries[] = new {
+            "g.V().drop()",
+            "g.addV('person').property('id', 'thomas').property('firstName', 'Thomas').property('age', 44)",
+            "g.addV('person').property('id', 'mary').property('firstName', 'Mary').property('lastName', 'Andersen').property('age', 39)",
+            "g.addV('person').property('id', 'ben').property('firstName', 'Ben').property('lastName', 'Miller')",
+            "g.addV('person').property('id', 'robin').property('firstName', 'Robin').property('lastName', 'Wakefield')",
+            "g.V('thomas').addE('knows').to(g.V('mary'))",
+            "g.V('thomas').addE('knows').to(g.V('ben'))",
+            "g.V('ben').addE('knows').to(g.V('robin'))",
+            "g.V('thomas').property('age', 44)",
+            "g.V().count()",
+            "g.V().hasLabel('person').has('age', gt(40))",
+            "g.V().hasLabel('person').order().by('firstName', decr)",
+            "g.V('thomas').outE('knows').inV().hasLabel('person')",
+            "g.V('thomas').outE('knows').inV().hasLabel('person').outE('knows').inV().hasLabel('person')",
+            "g.V('thomas').repeat(out()).until(has('id', 'robin')).path()",
+            "g.V('thomas').outE('knows').where(inV().has('id', 'mary')).drop()",
+            "g.E().count()",
+            "g.V('thomas').drop()" };
 
-        CompletableFuture<List<Result>> completableFutureResults = results.all();
-        List<Result> resultList = completableFutureResults.get();
+        for (String gremlin : gremlinQueries) {
+            ResultSet results = client.submit(gremlin);
 
-        for (Result result : resultList) {
-            System.out.println(result.toString());
+            CompletableFuture<List<Result>> completableFutureResults = results.all();
+            List<Result> resultList = completableFutureResults.get();
+
+            for (Result result : resultList) {
+                System.out.println(result.toString());
+            }
         }
     }
 }
