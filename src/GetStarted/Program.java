@@ -1,4 +1,4 @@
-package com.euler.gremlindriverclient;
+package GetStarted;
 
 import org.apache.tinkerpop.gremlin.driver.Client;
 import org.apache.tinkerpop.gremlin.driver.Cluster;
