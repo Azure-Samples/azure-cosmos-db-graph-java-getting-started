@@ -45,7 +45,7 @@ public class Program
             - traversals, including loops
             - update annd delete vertices and edges
         */
-        String gremlinQueries[] = new {
+        String gremlinQueries[] = new String[] {
             "g.V().drop()",
             "g.addV('person').property('id', 'thomas').property('firstName', 'Thomas').property('age', 44)",
             "g.addV('person').property('id', 'mary').property('firstName', 'Mary').property('lastName', 'Andersen').property('age', 39)",
