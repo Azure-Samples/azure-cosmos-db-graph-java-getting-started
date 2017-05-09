@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class App
+public class Program
 {
     public static void main( String[] args ) throws ExecutionException, InterruptedException {
 
