@@ -1,0 +1,3 @@
+hosts: [artrejo-g.graphs.azure.com]
+port: 80
+serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV1d0, config: { serializeResultToString: true }}
