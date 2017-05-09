@@ -30,7 +30,7 @@ public class App
         Client client;
 
         try {
-            cluster = Cluster.build(new File("src/remote-secure.yaml")).create();
+            cluster = Cluster.build(new File("src/remote.yaml")).create();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
