@@ -26,7 +26,7 @@ Azure Cosmos DB is a globally distributed multi-model database. One of the suppo
 | username | `/dbs/<db>/colls/<coll>` | The resource of the form `/dbs/<db>/colls/<coll>` where `<db>` is your database name and `<coll>` is your collection name. |
 | password | Your primary key | This is your primary key, which you can retrieve from the Keys page of the Azure portal, in the Primary Key box. Use the copy button on the left side of the box to copy the value. |
 | connectionPool | `{enableSsl: true}` | Your connection pool setting for SSL. |
-| serializer | `{ className:org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV1d0, config: { serializeResultToString: true }}` | Set to this value and delete any \n line breaks when pasting in the value. |
+| serializer | { className: org.apache.tinkerpop.gremlin. driver.ser.GraphSONMessageSerializerV1d0, config: { serializeResultToString: true }} | Set to this value and delete any \n line breaks and spaces when pasting in the value. |
 
 * From a command prompt or shell, run `mvn package` to compile and resolve dependencies.
 
