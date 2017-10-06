@@ -38,7 +38,7 @@ The code included in this sample is intended to get you quickly started with a J
 ## More information
 
 - [Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/introduction)
-- [Azure Cosmos DB : Graph API](https://docs.microsoft.com/azure/documentdb/graph-introduction)
+- [Azure Cosmos DB : Graph API](https://docs.microsoft.com/en-us/azure/cosmos-db/graph-introduction)
 - [Gremlin Java SDK](http://tinkerpop.apache.org/docs/current/reference/#gremlin-java)
 - [Gremlin Java Reference Documentation](http://tinkerpop.apache.org/javadocs/current/full/)
 
