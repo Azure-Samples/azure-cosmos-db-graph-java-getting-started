@@ -74,7 +74,7 @@ public class Program
             System.out.println("\nSubmitting this Gremlin query: " + query);
 
             // Submitting remote query to the server.
-            ResultSet results = results = client.submit(query);
+            ResultSet results = client.submit(query);
 
             CompletableFuture<List<Result>> completableFutureResults = results.all();
             List<Result> resultList = completableFutureResults.get();
