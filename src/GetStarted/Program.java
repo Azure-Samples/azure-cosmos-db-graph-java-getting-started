@@ -42,7 +42,7 @@ public class Program
             "g.V('thomas').drop()" };
 
 
-    public static void main( String[] args ) throws ExecutionException, InterruptedException {
+    public static void main( String[] args ) {
 
 
         /**
@@ -77,11 +77,16 @@ public class Program
             ResultSet results = results = client.submit(query);
 
             CompletableFuture<List<Result>> completableFutureResults = results.all();
-            List<Result> resultList = completableFutureResults.get();
+            try {
+                List<Result> resultList = completableFutureResults.get();
 
-            for (Result result : resultList) {
-                System.out.println("\nQuery result:");
-                System.out.println(result.toString());
+                for (Result result : resultList) {
+                    System.out.println("\nQuery result:");
+                    System.out.println(result.toString());
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                break;
             }
         }
 
@@ -92,6 +97,8 @@ public class Program
             e.printStackTrace();
             return;
         }
-        System.exit(0);
+
+        // Properly close all opened clients and the cluster
+        cluster.close();
     }
 }
