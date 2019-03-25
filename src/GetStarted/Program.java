@@ -87,7 +87,12 @@ public class Program
                 completableFutureStatusAttributes = results.statusAttributes();
                 resultList = completableFutureResults.get();
                 statusAttributes = completableFutureStatusAttributes.get();            
-            }catch(Exception e){
+            }
+            catch(ExecutionException | InterruptedException e){
+                e.printStackTrace();
+                break;
+            }
+            catch(Exception e){
                 ResponseException re = (ResponseException) e.getCause();
                 
                 // Response status codes. You can catch the 429 status code response and work on retry logic.
@@ -124,6 +129,10 @@ public class Program
             e.printStackTrace();
             return;
         }
+
+        // Properly close all opened clients and the cluster
+        cluster.close();
+
         System.exit(0);
     }
 }
