@@ -91,10 +91,18 @@ public class Program
                 statusAttributes = completableFutureStatusAttributes.get();            
             }catch(Exception e){
                 ResponseException re = (ResponseException) e.getCause();
-                System.out.println(Arrays.toString(re.getStatusAttributes().get().keySet().toArray()));
+                
+                // Response status codes. You can catch the 429 status code response and work on retry logic.
                 System.out.println("Status code: " + re.getStatusAttributes().get().get("x-ms-status-code")); 
                 System.out.println("Substatus code: " + re.getStatusAttributes().get().get("x-ms-substatus-code")); 
-                System.out.println("Request charge: " + re.getStatusAttributes().get().get("x-ms-request-charge"));
+                
+                // If error code is 429, this value will inform how many milliseconds you need to wait before retrying.
+                System.out.println("Retry after (ms): " + re.getStatusAttributes().get().get("x-ms-retry-after"));
+
+                // Total Request Units (RUs) charged for the operation, upon failure.
+                System.out.println("Request charge: " + re.getStatusAttributes().get().get("x-ms-total-request-charge"));
+                
+                // ActivityId for server-side debugging
                 System.out.println("ActivityId: " + re.getStatusAttributes().get().get("x-ms-activity-id"));
                 throw(e);
             }
@@ -104,7 +112,10 @@ public class Program
                 System.out.println(result.toString());
             }
 
+            // Status code for successful query. Usually HTTP 200.
             System.out.println("Status: " + statusAttributes.get("x-ms-status-code").toString());
+
+            // Total Request Units (RUs) charged for the operation, after a successful run.
             System.out.println("Total charge: " + statusAttributes.get("x-ms-total-request-charge").toString());
         }
 
