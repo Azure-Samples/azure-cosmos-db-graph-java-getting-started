@@ -1,4 +1,4 @@
-hosts: [$name$.graphs.azure.com]
+hosts: [$name$.gremlin.cosmosdb.azure.com]
 port: 443
 username: /dbs/$database$/colls/$collection$
 password: $masterKey$

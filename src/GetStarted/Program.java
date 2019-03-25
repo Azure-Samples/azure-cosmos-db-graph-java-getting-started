@@ -9,7 +9,6 @@ import org.apache.tinkerpop.gremlin.driver.exception.ResponseException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -26,7 +25,7 @@ public class Program
             - update annd delete vertices and edges
         */
         static final String gremlinQueries[] = new String[] {
-            //"g.V().drop()",
+            "g.V().drop()",
             "g.addV('person').property('id', 'thomas').property('firstName', 'Thomas').property('age', 44)",
             "g.addV('person').property('id', 'mary').property('firstName', 'Mary').property('lastName', 'Andersen').property('age', 39)",
             "g.addV('person').property('id', 'ben').property('firstName', 'Ben').property('lastName', 'Miller')",
@@ -44,8 +43,7 @@ public class Program
             "g.V('thomas').outE('knows').where(inV().has('id', 'mary')).drop()",
             "g.V('thomas').drop()" };
 
-
-    public static void main( String[] args ) throws ExecutionException, InterruptedException {
+  public static void main( String[] args ) throws ExecutionException, InterruptedException {
 
 
         /**
