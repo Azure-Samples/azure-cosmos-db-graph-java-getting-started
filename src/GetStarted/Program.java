@@ -4,11 +4,13 @@ import org.apache.tinkerpop.gremlin.driver.Client;
 import org.apache.tinkerpop.gremlin.driver.Cluster;
 import org.apache.tinkerpop.gremlin.driver.Result;
 import org.apache.tinkerpop.gremlin.driver.ResultSet;
+import org.apache.tinkerpop.gremlin.driver.exception.ResponseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -41,8 +43,7 @@ public class Program
             "g.V('thomas').outE('knows').where(inV().has('id', 'mary')).drop()",
             "g.V('thomas').drop()" };
 
-
-    public static void main( String[] args ) throws ExecutionException, InterruptedException {
+  public static void main( String[] args ) throws ExecutionException, InterruptedException {
 
 
         /**
@@ -74,15 +75,46 @@ public class Program
             System.out.println("\nSubmitting this Gremlin query: " + query);
 
             // Submitting remote query to the server.
-            ResultSet results = results = client.submit(query);
+            ResultSet results = client.submit(query);
 
-            CompletableFuture<List<Result>> completableFutureResults = results.all();
-            List<Result> resultList = completableFutureResults.get();
+            CompletableFuture<List<Result>> completableFutureResults;
+            CompletableFuture<Map<String, Object>> completableFutureStatusAttributes;
+            List<Result> resultList;
+            Map<String, Object> statusAttributes;
+
+            try{
+                completableFutureResults = results.all();
+                completableFutureStatusAttributes = results.statusAttributes();
+                resultList = completableFutureResults.get();
+                statusAttributes = completableFutureStatusAttributes.get();            
+            }catch(Exception e){
+                ResponseException re = (ResponseException) e.getCause();
+                
+                // Response status codes. You can catch the 429 status code response and work on retry logic.
+                System.out.println("Status code: " + re.getStatusAttributes().get().get("x-ms-status-code")); 
+                System.out.println("Substatus code: " + re.getStatusAttributes().get().get("x-ms-substatus-code")); 
+                
+                // If error code is 429, this value will inform how many milliseconds you need to wait before retrying.
+                System.out.println("Retry after (ms): " + re.getStatusAttributes().get().get("x-ms-retry-after"));
+
+                // Total Request Units (RUs) charged for the operation, upon failure.
+                System.out.println("Request charge: " + re.getStatusAttributes().get().get("x-ms-total-request-charge"));
+                
+                // ActivityId for server-side debugging
+                System.out.println("ActivityId: " + re.getStatusAttributes().get().get("x-ms-activity-id"));
+                throw(e);
+            }
 
             for (Result result : resultList) {
                 System.out.println("\nQuery result:");
                 System.out.println(result.toString());
             }
+
+            // Status code for successful query. Usually HTTP 200.
+            System.out.println("Status: " + statusAttributes.get("x-ms-status-code").toString());
+
+            // Total Request Units (RUs) charged for the operation, after a successful run.
+            System.out.println("Total charge: " + statusAttributes.get("x-ms-total-request-charge").toString());
         }
 
         System.out.println("Demo complete!\n Press Enter key to continue...");
