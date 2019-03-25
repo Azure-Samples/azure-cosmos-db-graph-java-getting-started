@@ -4,4 +4,4 @@ username: /dbs/$database$/colls/$collection$
 password: $masterKey$
 connectionPool: {
   enableSsl: true}
-serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV1d0, config: { serializeResultToString: true }}
+serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV2d0, config: { serializeResultToString: true }}
