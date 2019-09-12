@@ -1,7 +1,11 @@
 ---
-services: cosmos-db
-platforms: java
-author: arramac
+page_type: sample
+languages:
+- java
+products:
+- azure
+description: "Azure Cosmos DB is a globally distributed multi-model database."
+urlFragment: azure-cosmos-db-graph-java-getting-started
 ---
 
 # Developing a Java app using Azure Cosmos DB
