@@ -21,7 +21,7 @@ Azure Cosmos DB is a globally distributed multi-model database. One of the suppo
 
 * Then, clone this repository using `git clone https://github.com/Azure-Samples/azure-cosmos-db-graph-java-getting-started.git`
 
-* Next, substitute the endpoint and authorization key in the `remote.yaml` with your Cosmos DB account's values. 
+* Next, substitute the endpoint and authorization key in the `remote.yaml` with your Cosmos DB account's values.
 
 | Setting | Suggested Value | Description |
 | ------- | --------------- | ----------- |
